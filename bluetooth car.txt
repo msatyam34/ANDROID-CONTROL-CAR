@@ -1,0 +1,78 @@
+#include <SoftwareSerial.h>
+
+SoftwareSerial bt(3,4);
+int readData;
+int In1=10;
+int In2=9;
+int In3=8;
+int In4=7;
+int ENA=11;
+int ENB=6;
+//int SPEED=210;
+
+void setup()
+{bt.begin(9600);
+Serial.begin(9600);
+}
+void loop()
+{
+  while(bt.available())
+{
+  delay(10);
+int c=bt.read();
+readData =c;}
+if(readData>0)
+{
+  Serial.println(readData);
+
+if(readData == 1){            //move forward(all motors rotate in forward direction)
+  digitalWrite(ENA,HIGH);
+  digitalWrite(ENB,HIGH);
+  digitalWrite(In1,HIGH);
+  digitalWrite(In2,LOW);
+  digitalWrite(In3,LOW);
+  digitalWrite(In4,HIGH);
+  delay(1000);
+}
+ 
+else if(readData == 2){      //move reverse (all motors rotate in reverse direction)
+  digitalWrite(ENA,HIGH);
+  digitalWrite(ENB,HIGH);
+  digitalWrite(In1,LOW);
+  digitalWrite(In2,HIGH);
+  digitalWrite(In3,HIGH);
+  digitalWrite(In4,LOW);
+  delay(1000);
+}
+ 
+else if(readData == 3){      //turn right (left side motors rotate in forward direction, right side motors doesn't rotate)
+  digitalWrite(ENA,HIGH);
+  digitalWrite(ENB,HIGH);
+  digitalWrite(In1,LOW);
+  digitalWrite(In2,LOW);
+  digitalWrite(In3,HIGH);
+  digitalWrite(In4,LOW);
+  delay(1000);
+}
+ 
+else if(readData == 4){      //turn left (right side motors rotate in forward direction, left side motors doesn't rotate)
+  digitalWrite(ENA,HIGH);
+  digitalWrite(ENB,HIGH);
+  digitalWrite(In1,HIGH);
+  digitalWrite(In2,LOW);
+  digitalWrite(In3,LOW);
+  digitalWrite(In4,LOW);
+}
+ 
+else if(readData == 5){      //STOP (all motors stop)
+  digitalWrite(ENA,HIGH);
+  digitalWrite(ENB,HIGH);
+  digitalWrite(In1,LOW);
+  digitalWrite(In2,LOW);
+  digitalWrite(In3,LOW);
+  digitalWrite(In4,LOW);
+}
+delay(100);
+}
+readData=0;
+} 
